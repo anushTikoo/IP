@@ -50,8 +50,8 @@ IP/
 └── README.md
 ```
 
-## Formatting
-- **Python Files (`.py`)**: Individual cell blocks are separated by `# ----`. All code comments from the original documents have been removed.
+## Formatting & Memorization Optimization
+- **Python Files (`.py`)**: Individual cell blocks are separated by `# ----`. Code is streamlined and optimized for quick exam and interview memorization (~39 lines per file on average) while strictly preserving manual first-principles algorithms (no cheating with high-level library shortcuts).
 - **Notebook Files (`.ipynb`)**: Standard Jupyter Notebook format containing individual runnable code cells corresponding to each cell block.
 
 ## Requirements & Setup
