@@ -3,53 +3,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 # ----
 
-source = cv2.imread("source.jpg", 0)
+img = cv2.imread("source.jpg", cv2.IMREAD_GRAYSCALE)
+if img is None:
+    img = np.random.randint(50, 180, (128, 128), dtype=np.uint8)
 # ----
 
 def compute_histogram(image):
-    histogram = np.zeros(256, dtype=int)
-    rows, cols = image.shape
-    for i in range(rows):
-        for j in range(cols):
-            histogram[image[i, j]] += 1
-    return histogram
-# ----
-
-def compute_cdf(histogram):
-    cdf = np.zeros(256)
-    cdf[0] = histogram[0]
-    for i in range(1, 256):
-        cdf[i] = cdf[i-1] + histogram[i]
-    cdf = cdf / cdf[-1]
-    return cdf
-# ----
+    hist = np.zeros(256, dtype=int)
+    for pixel in image.ravel():
+        hist[pixel] += 1
+    return hist
 
 def histogram_equalization(image):
-    histogram = compute_histogram(image)
-    cdf = compute_cdf(histogram)
-    lookup = np.zeros(256, dtype=np.uint8)
-    for i in range(256):
-        lookup[i] = int(cdf[i] * 255)
-    rows, cols = image.shape
-    output = np.zeros_like(image)
-    for i in range(rows):
-        for j in range(cols):
-            output[i, j] = lookup[image[i, j]]
-    return output
+    hist = compute_histogram(image)
+    cdf = hist.cumsum()
+    lookup = (cdf / cdf[-1] * 255).astype(np.uint8)
+    return lookup[image]
 # ----
 
-equalized = histogram_equalization(source)
+equalized = histogram_equalization(img)
 
-plt.figure(figsize=(10, 5))
-plt.subplot(1, 2, 1)
-plt.imshow(source, cmap='gray')
-plt.title("Original")
-plt.axis('off')
-
-plt.subplot(1, 2, 2)
-plt.imshow(equalized, cmap='gray')
-plt.title("Histogram Equalization")
-plt.axis('off')
-plt.tight_layout()
-plt.show()
-# ----
+plt.figure(figsize=(10, 6))
+plt.subplot(221); plt.imshow(img, cmap='gray'); plt.title("Original"); plt.axis('off')
+plt.subplot(222); plt.imshow(equalized, cmap='gray'); plt.title("Equalized"); plt.axis('off')
+plt.subplot(223); plt.plot(compute_histogram(img)); plt.title("Original Histogram")
+plt.subplot(224); plt.plot(compute_histogram(equalized)); plt.title("Equalized Histogram")
+plt.tight_layout()\nplt.show()\n# ----\n

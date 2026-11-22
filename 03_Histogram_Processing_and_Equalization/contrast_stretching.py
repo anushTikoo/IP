@@ -3,32 +3,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 # ----
 
-source = cv2.imread("source.jpg", 0)
+img = cv2.imread("source.jpg", cv2.IMREAD_GRAYSCALE)
+if img is None:
+    img = np.random.randint(50, 180, (128, 128), dtype=np.uint8)
 # ----
 
 def contrast_stretch(image):
-    minimum = np.min(image)
-    maximum = np.max(image)
-    rows, cols = image.shape
-    output = np.zeros_like(image)
-    for i in range(rows):
-        for j in range(cols):
-            output[i, j] = int(((image[i, j] - minimum) / (maximum - minimum)) * 255)
-    return output
+    min_val, max_val = np.min(image), np.max(image)
+    return (((image - min_val) / (max_val - min_val)) * 255).astype(np.uint8)
 # ----
 
-contrast = contrast_stretch(source)
+stretched = contrast_stretch(img)
 
-plt.figure(figsize=(10, 5))
-plt.subplot(1, 2, 1)
-plt.imshow(source, cmap='gray')
-plt.title("Original")
-plt.axis('off')
-
-plt.subplot(1, 2, 2)
-plt.imshow(contrast, cmap='gray')
-plt.title("Contrast Stretching")
-plt.axis('off')
+plt.figure(figsize=(10, 4))
+plt.subplot(121); plt.imshow(img, cmap='gray'); plt.title(f"Original (min={img.min()}, max={img.max()})"); plt.axis('off')
+plt.subplot(122); plt.imshow(stretched, cmap='gray'); plt.title(f"Contrast Stretched (min={stretched.min()}, max={stretched.max()})"); plt.axis('off')
 plt.tight_layout()
 plt.show()
 # ----
