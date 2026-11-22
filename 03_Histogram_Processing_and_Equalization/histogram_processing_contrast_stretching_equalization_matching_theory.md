@@ -29,11 +29,20 @@
 ## 4. How It Works (Comparative Algorithmic Framework)
 
 1. **Contrast Stretching**:
-   $$s = \frac{r - r_{min}}{r_{max} - r_{min}} \times 255$$
+
+   $$
+   s = \frac{r - r_{min}}{r_{max} - r_{min}} \times 255
+   $$
 2. **Histogram Equalization**:
-   $$s = \text{round}\left( \frac{\sum_{j=0}^r n_j}{MN} \times 255 \right)$$
+
+   $$
+   s = \text{round}\left( \frac{\sum_{j=0}^r n_j}{MN} \times 255 \right)
+   $$
 3. **Histogram Matching**:
-   $$s = G^{-1}(T(r)) \quad \text{where } T(r) = CDF_{src}(r) \text{ and } G(z) = CDF_{tgt}(z)$$
+
+   $$
+   s = G^{-1}(T(r)) \quad \text{where } T(r) = CDF_{src}(r) \text{ and } G(z) = CDF_{tgt}(z)
+   $$
 
 ---
 

@@ -8,7 +8,10 @@
 ## 2. What It Is (Concept & Definition)
 - **Laplacian Operator**: A 2nd-order isotropic (rotationally invariant) derivative spatial operator.
 - **Mathematical Definition**: The divergence of the gradient vector:
-  $$\nabla^2 f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}$$
+
+  $$
+  \nabla^2 f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}
+  $$
 - **Isotropic Property**: $\nabla^2 f$ is invariant to rotation. A single kernel detects edges in all directions simultaneously without needing separate horizontal and vertical passes!
 - **Zero-Crossings**: Unlike 1st-order operators which produce broad peaks at edges, the Laplacian produces a zero-crossing (a sign change from positive to negative) exactly at the center of an edge.
 
@@ -17,7 +20,10 @@
 ## 3. Why We Do It (Motivation & Practical Use Cases)
 - **Omnidirectional Edge Detection**: Detects horizontal, vertical, and diagonal edges simultaneously in a single convolution step.
 - **Image Sharpening (Unsharp Masking)**: Subtracting the Laplacian from the original image enhances fine details and edges:
-  $$g(x, y) = f(x, y) - c \cdot \nabla^2 f(x, y)$$
+
+  $$
+  g(x, y) = f(x, y) - c \cdot \nabla^2 f(x, y)
+  $$
 - **Marr-Hildreth Edge Detection (LoG - Laplacian of Gaussian)**: Finds closed, single-pixel-thick contour boundaries via zero-crossing detection.
 - **Major Disadvantage**: Being a second-order derivative, it is **extremely sensitive to noise**. It should almost never be applied to raw images without prior Gaussian smoothing.
 
@@ -27,16 +33,28 @@
 
 ### A. Finite Difference Derivation
 Using Taylor series central differences:
-$$\frac{\partial^2 f}{\partial x^2} \approx f(x+1, y) - 2f(x, y) + f(x-1, y)$$
-$$\frac{\partial^2 f}{\partial y^2} \approx f(x, y+1) - 2f(x, y) + f(x, y-1)$$
+$$
+\frac{\partial^2 f}{\partial x^2} \approx f(x+1, y) - 2f(x, y) + f(x-1, y)
+$$
+$$
+\frac{\partial^2 f}{\partial y^2} \approx f(x, y+1) - 2f(x, y) + f(x, y-1)
+$$
 Summing both equations yields the discrete Laplacian:
-$$\nabla^2 f(x, y) = f(x+1, y) + f(x-1, y) + f(x, y+1) + f(x, y-1) - 4f(x, y)$$
+$$
+\nabla^2 f(x, y) = f(x+1, y) + f(x-1, y) + f(x, y+1) + f(x, y-1) - 4f(x, y)
+$$
 
 ### B. Discrete Kernels
 - **4-Neighbor Standard Kernel**:
-  $$K_{4} = \begin{bmatrix} 0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
+
+  $$
+  K_{4} = \begin{bmatrix} 0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0 \end{bmatrix}
+  $$
 - **8-Neighbor Diagonal-Inclusive Kernel**:
-  $$K_{8} = \begin{bmatrix} 1 & 1 & 1 \\ 1 & -8 & 1 \\ 1 & 1 & 1 \end{bmatrix}$$
+
+  $$
+  K_{8} = \begin{bmatrix} 1 & 1 & 1 \\ 1 & -8 & 1 \\ 1 & 1 & 1 \end{bmatrix}
+  $$
   *Notice*: The sum of coefficients is strictly zero ($\sum K = 0$), giving zero response on flat surfaces.
 
 ### C. The Double-Edge Effect

@@ -58,7 +58,15 @@ END ALGORITHM
 
 ## 5. Mathematical Formulations & Transformation Equations
 - **Pipeline Flow:** $I_{RGB} \xrightarrow{\text{Luminance}} I_{Gray} \xrightarrow{\text{Otsu}} I_{Bin} \xrightarrow{\text{Morphology}} I_{Clean} \xrightarrow{\text{Contours}} \{C_i\} \xrightarrow{\text{Moments}} \text{Features} \to \text{Labels}$
-- **Circularity Classifier:** $\text{Class} = \begin{cases} \text{Circle} & \text{if } C > 0.85 \\ \text{Square/Polygon} & \text{if } 0.70 < C \le 0.85 \\ \text{Irregular} & \text{if } C \le 0.70 \end{cases}$
+- **Circularity Classifier:**
+
+  $$
+  \text{Class} = \begin{cases}
+    \text{Circle} & \text{if } C > 0.85 \\
+    \text{Square/Polygon} & \text{if } 0.70 < C \le 0.85 \\
+    \text{Irregular} & \text{if } C \le 0.70
+  \end{cases}
+  $$
 
 ---
 

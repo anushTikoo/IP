@@ -55,7 +55,11 @@ END ALGORITHM
 ---
 
 ## 5. Mathematical Formulations & Transformation Equations
-- **Prewitt Kernels:** $K_x = \begin{bmatrix} -1 & 0 & 1 \\ -1 & 0 & 1 \\ -1 & 0 & 1 \end{bmatrix}, \quad K_y = \begin{bmatrix} -1 & -1 & -1 \\ 0 & 0 & 0 \\ 1 & 1 & 1 \end{bmatrix}$
+- **Prewitt Kernels:**
+
+  $$
+  K_x = \begin{bmatrix} -1 & 0 & 1 \\ -1 & 0 & 1 \\ -1 & 0 & 1 \end{bmatrix}, \quad K_y = \begin{bmatrix} -1 & -1 & -1 \\ 0 & 0 & 0 \\ 1 & 1 & 1 \end{bmatrix}
+  $$
 - **Gradient Magnitude:** $|\nabla f| = \sqrt{G_x^2 + G_y^2} \approx |G_x| + |G_y|$
 - **Gradient Direction:** $\theta = \arctan\left(\frac{G_y}{G_x}\right)$
 

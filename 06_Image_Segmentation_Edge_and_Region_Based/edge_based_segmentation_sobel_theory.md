@@ -9,7 +9,10 @@
 - **Image Segmentation**: The process of partitioning a digital image into multiple non-overlapping constituent regions (sets of pixels) that share common visual characteristics (color, intensity, texture).
 - **Edge-Based Segmentation**: A **discontinuity-based approach** founded on the premise that boundaries between different regions are characterized by sharp, abrupt local changes in pixel intensity.
 - **Core Workflow**:
-  $$\text{Input Image } f(x, y) \xrightarrow{\text{Gradient Convolution}} |\nabla f(x, y)| \xrightarrow{\text{Thresholding } T} \text{Binary Edge Map } B(x, y)$$
+
+  $$
+  \text{Input Image } f(x, y) \xrightarrow{\text{Gradient Convolution}} |\nabla f(x, y)| \xrightarrow{\text{Thresholding } T} \text{Binary Edge Map } B(x, y)
+  $$
 
 ---
 
@@ -27,11 +30,23 @@
 
 ### A. Mathematical Procedure
 1. Convolve image with horizontal and vertical Sobel kernels:
-   $$G_x = f * S_x, \quad G_y = f * S_y$$
+
+   $$
+   G_x = f * S_x, \quad G_y = f * S_y
+   $$
 2. Compute Euclidean gradient magnitude:
-   $$|\nabla f(x, y)| = \sqrt{G_x^2(x, y) + G_y^2(x, y)}$$
+
+   $$
+   |\nabla f(x, y)| = \sqrt{G_x^2(x, y) + G_y^2(x, y)}
+   $$
 3. Apply binary thresholding with cutoff $T$:
-   $$S(x, y) = \begin{cases} 255 & \text{if } |\nabla f(x, y)| \ge T \\ 0 & \text{otherwise} \end{cases}$$
+
+   $$
+   S(x, y) = \begin{cases}
+        255 & \text{if } |\nabla f(x, y)| \ge T \\
+        0 & \text{otherwise}
+      \end{cases}
+   $$
 
 ---
 

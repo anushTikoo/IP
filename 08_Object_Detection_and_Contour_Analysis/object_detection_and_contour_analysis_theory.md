@@ -55,7 +55,9 @@ In [`object_detection_and_contour_analysis.py`](file:///home/anushtikoo/Download
 
 ### Q1: What is Otsu's thresholding method, and how does it automate binary mask creation?
 **Answer**: Otsu's method is an optimal global thresholding algorithm that iterates through all possible threshold values $t \in [0, 255]$ and selects the threshold that maximizes the **inter-class variance** $\sigma_B^2(t)$ (equivalent to minimizing intra-class variance):
-$$\sigma_B^2(t) = \omega_0(t) \omega_1(t) (\mu_0(t) - \mu_1(t))^2$$
+$$
+\sigma_B^2(t) = \omega_0(t) \omega_1(t) (\mu_0(t) - \mu_1(t))^2
+$$
 where $\omega_0, \omega_1$ are the probabilities of background and foreground classes, and $\mu_0, \mu_1$ are their mean intensities. It completely eliminates manual threshold tuning.
 
 ### Q2: How do you handle overlapping or touching objects in contour analysis?
@@ -67,8 +69,14 @@ where $\omega_0, \omega_1$ are the probabilities of background and foreground cl
 ### Q3: What is the Aspect Ratio and Extent of a contour bounding box?
 **Answer**:
 - **Aspect Ratio**: The ratio of bounding box width to height:
-  $$\text{Aspect Ratio} = \frac{W}{H}$$
+
+  $$
+  \text{Aspect Ratio} = \frac{W}{H}
+  $$
   (Distinguishes tall vertical objects from wide horizontal objects).
 - **Extent**: The ratio of contour area to bounding box area:
-  $$\text{Extent} = \frac{\text{Contour Area}}{W \times H}$$
+
+  $$
+  \text{Extent} = \frac{\text{Contour Area}}{W \times H}
+  $$
   (A solid rectangular box has an extent of $1.0$, whereas a triangle has an extent of $\approx 0.5$).

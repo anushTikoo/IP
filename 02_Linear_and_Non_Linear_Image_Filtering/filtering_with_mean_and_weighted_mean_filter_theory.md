@@ -9,13 +9,19 @@
 - **Mean Filter (Box Filter)**: A linear spatial domain smoothing filter where each pixel is replaced by the arithmetic mean of its neighborhood.
 - **Weighted Mean Filter**: A linear spatial filter where neighboring pixels are weighted according to their spatial distance from the center pixel (often approximating a 2D Gaussian distribution).
 - **Mathematical Classification**: Linear spatial convolution:
-  $$g(x, y) = f(x, y) * h(x, y) = \sum_{s=-a}^a \sum_{t=-b}^b h(s, t) \cdot f(x-s, y-t)$$
+
+  $$
+  g(x, y) = f(x, y) * h(x, y) = \sum_{s=-a}^a \sum_{t=-b}^b h(s, t) \cdot f(x-s, y-t)
+  $$
 
 ---
 
 ## 3. Why We Do It (Motivation & Practical Use Cases)
 - **Gaussian / Thermal Noise Suppression**: Camera sensor electronic thermal noise roughly follows a zero-mean Gaussian distribution $\mathcal{N}(0, \sigma^2)$. Averaging $N$ independent noisy pixels reduces the noise variance by a factor of $N$:
-  $$\sigma_{filtered}^2 = \frac{\sigma^2}{N}$$
+
+  $$
+  \sigma_{filtered}^2 = \frac{\sigma^2}{N}
+  $$
 - **Pre-processing Smoothing**: Softens rough noise textures before edge detection or image thresholding.
 - **Trade-off / Downside**: Blurs sharp object boundaries and fine details because high spatial frequencies (edges) are attenuated along with the noise.
 
@@ -25,12 +31,16 @@
 
 ### A. 3x3 Standard Mean (Box) Filter Kernel
 Every coefficient is $1/9$:
-$$K_{mean} = \frac{1}{9} \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$$
+$$
+K_{mean} = \frac{1}{9} \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}
+$$
 Notice that $\sum K = 1.0$. This ensures **energy conservation** (the mean brightness of the image is preserved without darkening or washing out).
 
 ### B. 3x3 Weighted Mean Kernel (Gaussian Approximation)
 Pixels closer to the center receive higher weight:
-$$K_{weighted} = \frac{1}{16} \begin{bmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{bmatrix}$$
+$$
+K_{weighted} = \frac{1}{16} \begin{bmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{bmatrix}
+$$
 Here, $\sum K = 1 + 2 + 1 + 2 + 4 + 2 + 1 + 2 + 1 = 16$, normalized by dividing by $16$.
 - Center pixel weight is $4/16 = 25\%$.
 - Direct 4-neighbors have weight $2/16 = 12.5\%$.
@@ -40,7 +50,11 @@ Here, $\sum K = 1 + 2 + 1 + 2 + 4 + 2 + 1 + 2 + 1 = 16$, normalized by dividing 
 ### C. Computational Complexity
 For an image of size $H \times W$ and kernel $k \times k$:
 - Naive 2D convolution: $O(H \times W \times k^2)$ operations.
-- Separable filter: $K_{mean} = \frac{1}{3}\begin{bmatrix} 1\\1\\1 \end{bmatrix} * \frac{1}{3}\begin{bmatrix} 1 & 1 & 1 \end{bmatrix} \implies O(H \times W \times 2k)$ operations.
+- Separable filter:
+
+  $$
+  K_{mean} = \frac{1}{3}\begin{bmatrix} 1\\1\\1 \end{bmatrix} * \frac{1}{3}\begin{bmatrix} 1 & 1 & 1 \end{bmatrix} \implies O(H \times W \times 2k)
+  $$
 
 ---
 

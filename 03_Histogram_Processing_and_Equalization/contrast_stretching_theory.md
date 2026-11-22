@@ -24,9 +24,13 @@
 
 ### A. Governing Linear Equation
 For an input pixel intensity $r \in [r_{min}, r_{max}]$, the stretched output $s \in [0, L - 1]$ is:
-$$s = T(r) = \frac{r - r_{min}}{r_{max} - r_{min}} \times (L - 1)$$
+$$
+s = T(r) = \frac{r - r_{min}}{r_{max} - r_{min}} \times (L - 1)
+$$
 For 8-bit digital images where $L = 256$ ($L - 1 = 255$):
-$$s = \frac{r - r_{min}}{r_{max} - r_{min}} \times 255$$
+$$
+s = \frac{r - r_{min}}{r_{max} - r_{min}} \times 255
+$$
 
 ### B. Mathematical Properties
 1. **Monotonicity**: $T(r_2) \ge T(r_1)$ whenever $r_2 > r_1$. This guarantees that the relative brightness ordering of pixels is strictly preserved (no inversion or intensity re-ordering).
@@ -58,7 +62,9 @@ In [`contrast_stretching.py`](file:///home/anushtikoo/Downloads/IP/03_Histogram_
 
 ### Q2: How can contrast stretching be made robust to outlier pixels?
 **Answer**: By using **Percentile Contrast Stretching** (e.g., 1st and 99th percentiles). Instead of the absolute $\min$ and $\max$, we clip intensities at $P_{1\%}$ and $P_{99\%}$:
-$$s = \text{clip}\left(\frac{r - P_{1}}{P_{99} - P_{1}} \times 255, 0, 255\right)$$
+$$
+s = \text{clip}\left(\frac{r - P_{1}}{P_{99} - P_{1}} \times 255, 0, 255\right)
+$$
 This discards extreme sensor noise spikes before linear rescaling.
 
 ### Q3: What is the slope of the transformation function if the image has high contrast?

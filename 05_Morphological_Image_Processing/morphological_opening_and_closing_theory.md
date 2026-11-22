@@ -8,11 +8,20 @@
 
 ## 2. What It Is (Concept & Definition)
 - **Opening ($A \circ B$)**: Erosion followed by dilation with the same structuring element:
-  $$A \circ B = (A \ominus B) \oplus B$$
+
+  $$
+  A \circ B = (A \ominus B) \oplus B
+  $$
 - **Closing ($A \bullet B$)**: Dilation followed by erosion with the same structuring element:
-  $$A \bullet B = (A \oplus B) \ominus B$$
+
+  $$
+  A \bullet B = (A \oplus B) \ominus B
+  $$
 - **Algebraic Property: Idempotence**: Repeating opening or closing multiple times with the same structuring element produces no further change:
-  $$(A \circ B) \circ B = A \circ B, \quad (A \bullet B) \bullet B = A \bullet B$$
+
+  $$
+  (A \circ B) \circ B = A \circ B, \quad (A \bullet B) \bullet B = A \bullet B
+  $$
   Once an image is opened or closed, it is stable.
 
 ---
@@ -43,7 +52,9 @@
    - *Idempotent*: $(A \bullet B) \bullet B = A \bullet B$.
 
 ### B. Morphological Filter Duality
-$$(A \circ B)^c = A^c \bullet \hat{B}$$
+$$
+(A \circ B)^c = A^c \bullet \hat{B}
+$$
 Opening the foreground is identical to closing the background!
 
 ---
@@ -70,5 +81,7 @@ In [`morphological_opening_and_closing.py`](file:///home/anushtikoo/Downloads/IP
 
 ### Q3: What is the Morphological Gradient and how is it related to dilation and erosion?
 **Answer**: The Morphological Gradient $G(A)$ is the difference between dilation and erosion:
-$$G(A) = (A \oplus B) - (A \ominus B)$$
+$$
+G(A) = (A \oplus B) - (A \ominus B)
+$$
 It highlights the total outer and inner boundary contours of objects simultaneously, serving as a non-linear edge detector.

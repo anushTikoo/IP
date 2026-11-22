@@ -32,7 +32,9 @@
 
 ### A. First-Order vs Second-Order Edge Profile
 Consider a 1-D intensity ramp representing a blurred edge:
-$$f(x): \quad [0, 0, 0, 2, 4, 6, 8, 10, 10, 10]$$
+$$
+f(x): \quad [0, 0, 0, 2, 4, 6, 8, 10, 10, 10]
+$$
 - **1st Derivative ($f'$)**: $[0, 0, 2, 2, 2, 2, 2, 0, 0]$ $\implies$ Forms a wide plateau/peak indicating the presence of an edge.
 - **2nd Derivative ($f''$)**: $[0, 2, 0, 0, 0, 0, -2, 0]$ $\implies$ Positive spike at the start, zero-crossings in the middle, and negative spike at the end.
 

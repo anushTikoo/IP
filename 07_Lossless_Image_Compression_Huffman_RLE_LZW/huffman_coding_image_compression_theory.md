@@ -9,7 +9,10 @@
 - **Huffman Coding**: An optimal statistical prefix coding algorithm for lossless data compression, invented by David Huffman in 1952.
 - **Prefix Property (Prefix-Free Code)**: No valid code word is a prefix (initial segment) of any other code word. This guarantees that encoded bitstreams can be parsed uniquely and instantaneously from left to right without special delimiter symbols.
 - **Optimality**: Generates the minimum redundancy variable-length code for a known probability distribution, approaching the theoretical lower bound set by **Shannon's Source Coding Theorem**:
-  $$L_{avg} = \sum_{i=1}^n p_i l_i \ge H(S) = -\sum_{i=1}^n p_i \log_2 p_i$$
+
+  $$
+  L_{avg} = \sum_{i=1}^n p_i l_i \ge H(S) = -\sum_{i=1}^n p_i \log_2 p_i
+  $$
   where $L_{avg}$ is the average code length (bits/pixel) and $H(S)$ is the source entropy.
 
 ---
@@ -51,9 +54,15 @@ Traverse the tree from root to every leaf. Record the sequence of branch labels 
 
 ### C. Metrics
 - **Compression Ratio (CR)**:
-  $$CR = \frac{\text{Uncompressed Bits}}{\text{Compressed Bits}} = \frac{N \times 8}{\sum_{i} \text{count}_i \times \text{len}(\text{code}_i)}$$
+
+  $$
+  CR = \frac{\text{Uncompressed Bits}}{\text{Compressed Bits}} = \frac{N \times 8}{\sum_{i} \text{count}_i \times \text{len}(\text{code}_i)}
+  $$
 - **Coding Efficiency ($\eta$)**:
-  $$\eta = \frac{H(S)}{L_{avg}} \times 100\% \le 100\%$$
+
+  $$
+  \eta = \frac{H(S)}{L_{avg}} \times 100\% \le 100\%
+  $$
 
 ---
 

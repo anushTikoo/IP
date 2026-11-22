@@ -8,7 +8,10 @@
 ## 2. What It Is (Concept & Definition)
 - **Morphological Boundary Extraction**: A morphological algorithm that extracts the exact perimeter contour of binary objects by subtracting an eroded version of the set from the set itself.
 - **Mathematical Classification**: Set difference of a set and its morphological erosion:
-  $$\beta(A) = A - (A \ominus B) = A \cap (A \ominus B)^c$$
+
+  $$
+  \beta(A) = A - (A \ominus B) = A \cap (A \ominus B)^c
+  $$
 - **Boundary Thickness**: Controlled by the size of the structuring element $B$. A $3 \times 3$ element extracts a boundary that is exactly 1-pixel thick.
 
 ---
@@ -24,13 +27,22 @@
 
 ### A. Boundary Types
 1. **Internal Boundary ($\beta_{int}(A)$)**:
-   $$\beta_{int}(A) = A - (A \ominus B)$$
+
+   $$
+   \beta_{int}(A) = A - (A \ominus B)
+   $$
    The boundary pixels lie strictly inside the foreground object.
 2. **External Boundary ($\beta_{ext}(A)$)**:
-   $$\beta_{ext}(A) = (A \oplus B) - A$$
+
+   $$
+   \beta_{ext}(A) = (A \oplus B) - A
+   $$
    The boundary pixels lie strictly outside the foreground object in the background.
 3. **Morphological Gradient (Total Boundary)**:
-   $$\beta_{total}(A) = (A \oplus B) - (A \ominus B)$$
+
+   $$
+   \beta_{total}(A) = (A \oplus B) - (A \ominus B)
+   $$
    Spans both inside and outside the object boundary (2 pixels thick).
 
 ---

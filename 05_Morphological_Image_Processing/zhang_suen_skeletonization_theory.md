@@ -27,12 +27,17 @@
 
 ### A. Neighborhood Clockwise Labeling
 For a candidate pixel $P_1$, inspect its 8 neighbors in clockwise order:
-$$\begin{bmatrix} P_9 & P_2 & P_3 \\ P_8 & P_1 & P_4 \\ P_7 & P_6 & P_5 \end{bmatrix}$$
+$$
+\begin{bmatrix} P_9 & P_2 & P_3 \\ P_8 & P_1 & P_4 \\ P_7 & P_6 & P_5 \end{bmatrix}
+$$
 The circular sequence of neighbors is: $P_2, P_3, P_4, P_5, P_6, P_7, P_8, P_9, P_2$.
 
 ### B. Two Key Metrics
 1. **$B(P_1)$ (Non-zero neighbor count)**:
-   $$B(P_1) = \sum_{i=2}^9 P_i \quad (\text{number of foreground neighbors})$$
+
+   $$
+   B(P_1) = \sum_{i=2}^9 P_i \quad (\text{number of foreground neighbors})
+   $$
 2. **$A(P_1)$ (0-to-1 Transitions)**:
    The count of transitions from $0$ to $1$ when traversing the ordered sequence $P_2, P_3, \dots, P_9, P_2$.
 

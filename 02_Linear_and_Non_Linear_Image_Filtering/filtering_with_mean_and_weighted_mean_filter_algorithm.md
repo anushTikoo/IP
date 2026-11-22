@@ -50,8 +50,16 @@ END ALGORITHM
 
 ## 5. Mathematical Formulations & Transformation Equations
 - **Discrete 2D Convolution:** $g(x, y) = \sum_{s=-a}^a \sum_{t=-b}^b w(s, t) f(x+s, y+t)$
-- **Box Kernel ($3 \times 3$):** $K_{box} = \frac{1}{9} \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
-- **Weighted Kernel:** $W = \frac{1}{16} \begin{bmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{bmatrix}$
+- **Box Kernel ($3 \times 3$):**
+
+  $$
+  K_{box} = \frac{1}{9} \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}
+  $$
+- **Weighted Kernel:**
+
+  $$
+  W = \frac{1}{16} \begin{bmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 1 \end{bmatrix}
+  $$
 
 ---
 

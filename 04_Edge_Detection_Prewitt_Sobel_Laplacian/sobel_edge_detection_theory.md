@@ -23,12 +23,20 @@
 
 ### A. Sobel Convolution Kernels
 - **Horizontal Kernel ($S_x$)** (detects vertical edges):
-  $$S_x = \begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 & 2 \\ -1 & 0 & 1 \end{bmatrix}$$
+
+  $$
+  S_x = \begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 & 2 \\ -1 & 0 & 1 \end{bmatrix}
+  $$
 - **Vertical Kernel ($S_y$)** (detects horizontal edges):
-  $$S_y = \begin{bmatrix} -1 & -2 & -1 \\ 0 & 0 & 0 \\ 1 & 2 & 1 \end{bmatrix}$$
+
+  $$
+  S_y = \begin{bmatrix} -1 & -2 & -1 \\ 0 & 0 & 0 \\ 1 & 2 & 1 \end{bmatrix}
+  $$
 
 ### B. Separability Decomposition
-$$S_x = \begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix} * \begin{bmatrix} -1 & 0 & 1 \end{bmatrix}, \quad S_y = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} * \begin{bmatrix} 1 & 2 & 1 \end{bmatrix}$$
+$$
+S_x = \begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix} * \begin{bmatrix} -1 & 0 & 1 \end{bmatrix}, \quad S_y = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} * \begin{bmatrix} 1 & 2 & 1 \end{bmatrix}
+$$
 This proves mathematically that Sobel is a composition of:
 1. Triangular smoothing $[1, 2, 1]^T$ perpendicular to the edge.
 2. Central difference $[-1, 0, 1]$ parallel to the gradient.
@@ -37,7 +45,10 @@ This proves mathematically that Sobel is a composition of:
 - Exact Euclidean Magnitude: $M(x, y) = \sqrt{S_x^2 + S_y^2}$
 - Fast Manhattan Approximation: $M(x, y) \approx |S_x| + |S_y|$
 - Gradient Orientation Angle:
-  $$\theta(x, y) = \text{atan2}(S_y, S_x)$$
+
+  $$
+  \theta(x, y) = \text{atan2}(S_y, S_x)
+  $$
   Edges lie perpendicular to the gradient vector direction $\theta$.
 
 ---

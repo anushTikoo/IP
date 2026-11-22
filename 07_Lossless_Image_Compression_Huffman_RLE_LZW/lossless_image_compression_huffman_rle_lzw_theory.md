@@ -47,5 +47,7 @@ In [`lossless_image_compression_huffman_rle_lzw.py`](file:///home/anushtikoo/Dow
 
 ### Q2: What is Shannon's First Theorem (Source Coding Theorem)?
 **Answer**: Claude Shannon proved that for a discrete memoryless source $S$ with alphabet symbols $\{s_i\}$ and probabilities $\{p_i\}$, it is impossible to encode the source without error such that the average number of bits per symbol $L$ is less than the Shannon Entropy $H(S)$:
-$$L \ge H(S) = -\sum_{i} p_i \log_2 p_i$$
+$$
+L \ge H(S) = -\sum_{i} p_i \log_2 p_i
+$$
 No lossless compression algorithm can surpass this theoretical physical barrier.

@@ -9,11 +9,20 @@
 - **Prewitt Operator**: A discrete first-order directional derivative operator that calculates the gradient vector of image intensity at each pixel.
 - **Mathematical Classification**: Linear spatial filtering using two orthogonal $3 \times 3$ convolution kernels ($G_x$ and $G_y$).
 - **Gradient Vector**:
-  $$\nabla f = \begin{bmatrix} G_x \\ G_y \end{bmatrix} = \begin{bmatrix} \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial y} \end{bmatrix}$$
+
+  $$
+  \nabla f = \begin{bmatrix} G_x \\ G_y \end{bmatrix} = \begin{bmatrix} \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial y} \end{bmatrix}
+  $$
 - **Gradient Magnitude (Edge Strength)**:
-  $$M(x, y) = |\nabla f| = \sqrt{G_x^2 + G_y^2} \approx |G_x| + |G_y|$$
+
+  $$
+  M(x, y) = |\nabla f| = \sqrt{G_x^2 + G_y^2} \approx |G_x| + |G_y|
+  $$
 - **Gradient Direction (Edge Normal)**:
-  $$\theta = \arctan\left(\frac{G_y}{G_x}\right)$$
+
+  $$
+  \theta = \arctan\left(\frac{G_y}{G_x}\right)
+  $$
 
 ---
 
@@ -28,15 +37,23 @@
 
 ### A. Prewitt Convolution Kernels
 - **Horizontal Kernel ($K_x$)** (detects vertical edges):
-  $$K_x = \begin{bmatrix} -1 & 0 & 1 \\ -1 & 0 & 1 \\ -1 & 0 & 1 \end{bmatrix}$$
+
+  $$
+  K_x = \begin{bmatrix} -1 & 0 & 1 \\ -1 & 0 & 1 \\ -1 & 0 & 1 \end{bmatrix}
+  $$
   *Notice*: Computes $(p_{right} - p_{left})$ across all three rows equally.
 - **Vertical Kernel ($K_y$)** (detects horizontal edges):
-  $$K_y = \begin{bmatrix} -1 & -1 & -1 \\ 0 & 0 & 0 \\ 1 & 1 & 1 \end{bmatrix}$$
+
+  $$
+  K_y = \begin{bmatrix} -1 & -1 & -1 \\ 0 & 0 & 0 \\ 1 & 1 & 1 \end{bmatrix}
+  $$
   *Notice*: Computes $(p_{bottom} - p_{top})$ across all three columns equally.
 
 ### B. Separable Nature of Prewitt Kernels
 Both kernels are separable into a 1D difference operator and a 1D uniform smoother:
-$$K_x = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} * \begin{bmatrix} -1 & 0 & 1 \end{bmatrix}, \quad K_y = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} * \begin{bmatrix} 1 & 1 & 1 \end{bmatrix}$$
+$$
+K_x = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} * \begin{bmatrix} -1 & 0 & 1 \end{bmatrix}, \quad K_y = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} * \begin{bmatrix} 1 & 1 & 1 \end{bmatrix}
+$$
 This proves that Prewitt computes an unweighted moving average smoothing orthogonal to the differentiation direction.
 
 ---

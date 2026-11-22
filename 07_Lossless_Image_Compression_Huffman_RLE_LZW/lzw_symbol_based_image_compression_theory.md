@@ -24,7 +24,10 @@
 
 ### A. Compression Algorithm
 1. **Initialize Dictionary**: Pre-fill dictionary with all 256 single-byte roots:
-   $$\text{Dict}[0] = [0], \text{Dict}[1] = [1], \dots, \text{Dict}[255] = [255]$$
+
+   $$
+   \text{Dict}[0] = [0], \text{Dict}[1] = [1], \dots, \text{Dict}[255] = [255]
+   $$
    Next available code index = $256$.
 2. Set prefix string $P = \text{empty}$.
 3. For each incoming pixel byte $C$:

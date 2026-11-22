@@ -26,12 +26,16 @@
 
 ### A. Grayscale Conversion (ITU-R BT.601 Standard)
 Human visual perception is unequally sensitive to primary wavelengths due to retinal cone distribution (peak sensitivity is in green, followed by red, and least sensitive to blue):
-$$Y = 0.299 \cdot R + 0.587 \cdot G + 0.114 \cdot B$$
+$$
+Y = 0.299 \cdot R + 0.587 \cdot G + 0.114 \cdot B
+$$
 - Simply averaging $(R + G + B) / 3$ produces an unnaturally dark or flat image because green contributes the most perceived brightness.
 
 ### B. Color Inversion (Photographic Negative)
 For an 8-bit image with maximum dynamic range $L - 1 = 255$:
-$$s = T(r) = (L - 1) - r = 255 - r$$
+$$
+s = T(r) = (L - 1) - r = 255 - r
+$$
 White ($255$) maps to Black ($0$), and vice-versa.
 
 ### C. Geometric Coordinate Transformations

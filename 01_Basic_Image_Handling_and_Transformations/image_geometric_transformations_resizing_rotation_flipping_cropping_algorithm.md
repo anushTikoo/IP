@@ -67,7 +67,11 @@ END ALGORITHM
 ---
 
 ## 5. Mathematical Formulations & Transformation Equations
-- **Backward Rotation Matrix:** $\begin{bmatrix} x - x_c \\ y - y_c \end{bmatrix} = \begin{bmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{bmatrix} \begin{bmatrix} x' - x_c \\ y' - y_c \end{bmatrix}$
+- **Backward Rotation Matrix:**
+
+  $$
+  \begin{bmatrix} x - x_c \\ y - y_c \end{bmatrix} = \begin{bmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{bmatrix} \begin{bmatrix} x' - x_c \\ y' - y_c \end{bmatrix}
+  $$
 - **Nearest Neighbor Scaling:** $(x, y) = (\text{round}(x' / s_x), \text{round}(y' / s_y))$
 
 ---

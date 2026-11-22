@@ -7,7 +7,10 @@
 
 ## 2. What It Is (Concept & Definition)
 - **Min Filter (0th Percentile Filter)**: An order-statistic non-linear spatial filter that replaces the center pixel of a sliding window with the minimum intensity found within that window:
-  $$g(x, y) = \min_{(s, t) \in S_{xy}} \{ f(x+s, y+t) \}$$
+
+  $$
+  g(x, y) = \min_{(s, t) \in S_{xy}} \{ f(x+s, y+t) \}
+  $$
 - **Connection to Morphology**: In morphological image processing, a min filter with a flat structuring element is identical to **grayscale morphological erosion**.
 
 ---
@@ -26,11 +29,16 @@
 For a window $S_{xy}$ of dimensions $k \times k$ centered at $(x, y)$:
 1. Extract the multiset of neighbor intensities: $\{p_1, p_2, \dots, p_{k^2}\}$.
 2. Output:
-   $$g(x, y) = \min(p_1, p_2, \dots, p_{k^2})$$
+
+   $$
+   g(x, y) = \min(p_1, p_2, \dots, p_{k^2})
+   $$
 
 ### B. Salt Noise Eradication Example
 Consider a dark object ($40$) contaminated with a single bright salt noise spike ($255$):
-$$\begin{bmatrix} 42 & 40 & 41 \\ 45 & \mathbf{255} & 43 \\ 40 & 42 & 44 \end{bmatrix} \implies \min = \mathbf{40}$$
+$$
+\begin{bmatrix} 42 & 40 & 41 \\ 45 & \mathbf{255} & 43 \\ 40 & 42 & 44 \end{bmatrix} \implies \min = \mathbf{40}
+$$
 The bright $255$ noise spike is completely eliminated!
 
 ---

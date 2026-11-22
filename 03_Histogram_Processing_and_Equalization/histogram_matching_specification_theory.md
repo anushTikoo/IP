@@ -24,11 +24,20 @@
 ### A. Mathematical Principle (The Intermediate Uniform Domain)
 Direct mapping from source $r$ to target $z$ is difficult because both distributions are arbitrary. Instead, we use a uniform intermediate variable $s$:
 1. Equalize the source image:
-   $$s = T(r) = \int_0^r p_r(w) \, dw$$
+
+   $$
+   s = T(r) = \int_0^r p_r(w) \, dw
+   $$
 2. Equalize the desired target distribution:
-   $$v = G(z) = \int_0^z p_z(w) \, dw$$
+
+   $$
+   v = G(z) = \int_0^z p_z(w) \, dw
+   $$
 3. Since both $s$ and $v$ follow a uniform distribution, we set $v = s$:
-   $$G(z) = T(r) \implies z = G^{-1}(T(r))$$
+
+   $$
+   G(z) = T(r) \implies z = G^{-1}(T(r))
+   $$
 
 ```
 Input r ---> [ T(r) ] ---> s  (Uniform)  s ---> [ G^-1(s) ] ---> Output z
@@ -38,7 +47,10 @@ Input r ---> [ T(r) ] ---> s  (Uniform)  s ---> [ G^-1(s) ] ---> Output z
 1. Compute the normalized CDF of the source image: $CDF_{src}(s), s \in [0, 255]$.
 2. Compute the normalized CDF of the target image: $CDF_{tgt}(z), z \in [0, 255]$.
 3. For each source gray level $s$, find the target gray level $z$ whose CDF is closest:
-   $$\text{lookup}[s] = \arg\min_{z} |CDF_{src}(s) - CDF_{tgt}(z)|$$
+
+   $$
+   \text{lookup}[s] = \arg\min_{z} |CDF_{src}(s) - CDF_{tgt}(z)|
+   $$
 4. Map the source image using the lookup table: $I_{matched} = \text{lookup}[I_{source}]$.
 
 ---
@@ -62,7 +74,9 @@ In [`histogram_matching_specification.py`](file:///home/anushtikoo/Downloads/IP/
 
 ### Q1: What happens if the target transformation $G(z)$ is not strictly monotonically increasing?
 **Answer**: If $G(z)$ is not strictly monotonic, its mathematical inverse $G^{-1}$ is not single-valued (multiple values of $z$ map to the same $v$). In discrete implementation, this ambiguity is resolved by choosing the smallest integer $z$ that satisfies the condition:
-$$\hat{z} = \arg\min_{z} |CDF_{src}(s) - CDF_{tgt}(z)|$$
+$$
+\hat{z} = \arg\min_{z} |CDF_{src}(s) - CDF_{tgt}(z)|
+$$
 
 ### Q2: What is the computational complexity of Histogram Matching?
 **Answer**: For an image of size $M \times N$ and $L = 256$ intensity levels:

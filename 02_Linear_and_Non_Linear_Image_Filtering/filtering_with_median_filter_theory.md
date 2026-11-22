@@ -8,7 +8,10 @@
 ## 2. What It Is (Concept & Definition)
 - **Median Filter**: A non-linear spatial order-statistic (rank-order) filter that replaces the center pixel of a sliding window with the mathematical median of all pixel intensities inside that window.
 - **Classification**: Non-linear neighborhood operation. It cannot be expressed as a linear matrix convolution kernel because the median operation violates the principle of superposition:
-  $$\text{Median}(f_1 + f_2) \neq \text{Median}(f_1) + \text{Median}(f_2)$$
+
+  $$
+  \text{Median}(f_1 + f_2) \neq \text{Median}(f_1) + \text{Median}(f_2)
+  $$
 
 ---
 
@@ -24,15 +27,26 @@
 ### A. Mathematical Procedure
 For a window $W$ of size $n = k \times k$ (where $k$ is odd, e.g., $3, 5, 7$):
 1. Extract all pixel values in the local neighborhood centered at $(x, y)$:
-   $$\{p_1, p_2, \dots, p_n\}$$
+
+   $$
+   \{p_1, p_2, \dots, p_n\}
+   $$
 2. Sort the values in ascending numerical order:
-   $$p_{(1)} \le p_{(2)} \le \dots \le p_{\left(\frac{n+1}{2}\right)} \le \dots \le p_{(n)}$$
+
+   $$
+   p_{(1)} \le p_{(2)} \le \dots \le p_{\left(\frac{n+1}{2}\right)} \le \dots \le p_{(n)}
+   $$
 3. Assign the median value (the rank $\frac{n+1}{2}$ element) to the output pixel:
-   $$g(x, y) = p_{\left(\frac{n+1}{2}\right)}$$
+
+   $$
+   g(x, y) = p_{\left(\frac{n+1}{2}\right)}
+   $$
 
 ### B. Impulse Noise Removal Example
 Consider a $3 \times 3$ neighborhood with a corrupted white "salt" pixel ($255$) on a dark gray surface ($50$):
-$$\begin{bmatrix} 52 & 50 & 51 \\ 49 & \mathbf{255} & 53 \\ 50 & 51 & 48 \end{bmatrix}$$
+$$
+\begin{bmatrix} 52 & 50 & 51 \\ 49 & \mathbf{255} & 53 \\ 50 & 51 & 48 \end{bmatrix}
+$$
 1. Flatten and sort: $[48, 49, 50, 50, \mathbf{51}, 51, 52, 53, 255]$
 2. 5th element (median) = **51**.
 3. Output pixel is replaced with $51$. The $255$ outlier is completely wiped out without leaving a trace!

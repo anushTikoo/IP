@@ -8,7 +8,10 @@
 ## 2. What It Is (Concept & Definition)
 - **Grayscale Conversion**: A point-processing operation mapping a 3D color vector $[R, G, B]^T \in \mathbb{R}^3$ to a scalar luminance intensity $Y \in [0, 255]$.
 - **Color Inversion (Negative Transformation)**: A linear point transformation that reverses the dynamic range:
-  $$s = T(r) = (L - 1) - r$$
+
+  $$
+  s = T(r) = (L - 1) - r
+  $$
   where $L$ is the number of intensity levels ($256$ for 8-bit images).
 - **Domain**: Spatial domain point operations (memoryless operations where the output intensity at $(x, y)$ depends only on the input intensity at $(x, y)$).
 
@@ -24,16 +27,24 @@
 ## 4. How It Works (Algorithmic & Mathematical Breakdown)
 
 ### A. Luminance Weighting (ITU-R BT.601)
-$$Y(x, y) = 0.299 \cdot R(x, y) + 0.587 \cdot G(x, y) + 0.114 \cdot B(x, y)$$
+$$
+Y(x, y) = 0.299 \cdot R(x, y) + 0.587 \cdot G(x, y) + 0.114 \cdot B(x, y)
+$$
 Notice that:
-$$\sum \text{weights} = 0.299 + 0.587 + 0.114 = 1.0$$
+$$
+\sum \text{weights} = 0.299 + 0.587 + 0.114 = 1.0
+$$
 This preserves the full $[0, 255]$ dynamic range without overflow.
 
 ### B. Color Inversion
 For RGB color images:
-$$\begin{bmatrix} R_{inv}(x, y) \\ G_{inv}(x, y) \\ B_{inv}(x, y) \end{bmatrix} = \begin{bmatrix} 255 - R(x, y) \\ 255 - G(x, y) \\ 255 - B(x, y) \end{bmatrix}$$
+$$
+\begin{bmatrix} R_{inv}(x, y) \\ G_{inv}(x, y) \\ B_{inv}(x, y) \end{bmatrix} = \begin{bmatrix} 255 - R(x, y) \\ 255 - G(x, y) \\ 255 - B(x, y) \end{bmatrix}
+$$
 For Grayscale images:
-$$I_{inv}(x, y) = 255 - I(x, y)$$
+$$
+I_{inv}(x, y) = 255 - I(x, y)
+$$
 
 ---
 

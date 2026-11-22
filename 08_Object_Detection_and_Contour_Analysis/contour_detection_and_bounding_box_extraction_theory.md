@@ -9,7 +9,10 @@
 - **Contour Detection**: An algorithmic procedure for extracting boundary curves along the continuous perimeter of connected components having the same color or intensity.
 - **Suzuki-Abe Border Following Algorithm**: The topological graph-tracing algorithm implemented in OpenCV (`cv2.findContours`) that classifies boundaries into outer contours and hole boundaries.
 - **Axis-Aligned Bounding Box (AABB)**: The smallest rectangle with edges parallel to the coordinate axes that completely encloses the detected contour:
-  $$\text{Box} = [x_{min}, y_{min}, W, H]$$
+
+  $$
+  \text{Box} = [x_{min}, y_{min}, W, H]
+  $$
   where $W = x_{max} - x_{min} + 1$ and $H = y_{max} - y_{min} + 1$.
 
 ---
@@ -31,8 +34,12 @@ In OpenCV `cv2.findContours(mask, mode, method)`:
 
 ### B. Bounding Box Computation
 For a contour array $C = \{(x_1, y_1), (x_2, y_2), \dots, (x_N, y_N)\}$:
-$$x = \min_i(x_i), \quad y = \min_i(y_i)$$
-$$w = \max_i(x_i) - x, \quad h = \max_i(y_i) - y$$
+$$
+x = \min_i(x_i), \quad y = \min_i(y_i)
+$$
+$$
+w = \max_i(x_i) - x, \quad h = \max_i(y_i) - y
+$$
 
 ---
 

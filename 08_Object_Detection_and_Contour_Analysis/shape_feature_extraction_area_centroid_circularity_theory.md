@@ -11,14 +11,23 @@
 ## 2. What It Is (Concept & Definition)
 - **Shape Feature Extraction**: The process of computing quantitative mathematical descriptors that characterize the geometric form, topology, and spatial distribution of segmented binary objects.
 - **Spatial Moments**: The fundamental statistical framework for shape analysis:
-  $$m_{p, q} = \sum_{x} \sum_{y} x^p y^q f(x, y)$$
+
+  $$
+  m_{p, q} = \sum_{x} \sum_{y} x^p y^q f(x, y)
+  $$
   where $p + q$ is the order of the moment.
 - **Key Descriptors**:
   - **Area ($m_{0,0}$)**: Zeroth-order spatial moment, representing the total number of foreground pixels.
   - **Centroid $(\bar{x}, \bar{y})$**: Normalized first-order moments representing the center of mass:
-    $$\bar{x} = \frac{m_{1,0}}{m_{0,0}}, \quad \bar{y} = \frac{m_{0,1}}{m_{0,0}}$$
+
+    $$
+    \bar{x} = \frac{m_{1,0}}{m_{0,0}}, \quad \bar{y} = \frac{m_{0,1}}{m_{0,0}}
+    $$
   - **Circularity (Isoperimetric Quotient / Form Factor)**:
-    $$C = \frac{4 \pi \cdot \text{Area}}{\text{Perimeter}^2}$$
+
+    $$
+    C = \frac{4 \pi \cdot \text{Area}}{\text{Perimeter}^2}
+    $$
 
 ---
 
@@ -33,10 +42,14 @@
 
 ### A. Mathematical Derivation of Circularity (The Isoperimetric Inequality)
 By the Isoperimetric Theorem in geometry, for any closed curve of perimeter $P$ enclosing area $A$:
-$$P^2 \ge 4 \pi A$$
+$$
+P^2 \ge 4 \pi A
+$$
 Equality ($P^2 = 4\pi A$) holds **if and only if the shape is a perfect circle**.
 Therefore:
-$$C = \frac{4 \pi A}{P^2} \le 1.0$$
+$$
+C = \frac{4 \pi A}{P^2} \le 1.0
+$$
 - Perfect Circle: $C = \frac{4 \pi (\pi r^2)}{(2 \pi r)^2} = \frac{4 \pi^2 r^2}{4 \pi^2 r^2} = \mathbf{1.0}$.
 - Square of side $s$: $A = s^2, P = 4s \implies C = \frac{4 \pi s^2}{16 s^2} = \frac{\pi}{4} \approx \mathbf{0.785}$.
 - Equilateral Triangle: $C \approx \mathbf{0.605}$.
@@ -69,7 +82,9 @@ In [`shape_feature_extraction_area_centroid_circularity.py`](file:///home/anusht
 
 ### Q2: What are Central Moments, and what invariance do they provide?
 **Answer**: Central moments $\mu_{p, q}$ subtract the centroid coordinates $(\bar{x}, \bar{y})$ before summation:
-$$\mu_{p, q} = \sum_{x} \sum_{y} (x - \bar{x})^p (y - \bar{y})^q f(x, y)$$
+$$
+\mu_{p, q} = \sum_{x} \sum_{y} (x - \bar{x})^p (y - \bar{y})^q f(x, y)
+$$
 Because coordinates are relative to the shape's center of mass, central moments are **translation invariant** (they remain identical regardless of where the object moves in the image).
 
 ### Q3: What are Hu Moments?

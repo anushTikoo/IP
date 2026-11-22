@@ -48,11 +48,16 @@ In [`morphological_operations_complete.py`](file:///home/anushtikoo/Downloads/IP
 
 ### Q1: What is the Hit-or-Miss Transform and why is it considered the foundation of morphology?
 **Answer**: The Hit-or-Miss transform ($A \circledast B$) searches for a specific geometric pattern in an image. It uses a composite structuring element $B = (B_{fg}, B_{bg})$ where $B_{fg}$ must match the foreground ("hit") and $B_{bg}$ must match the background ("miss"):
-$$A \circledast B = (A \ominus B_{fg}) \cap (A^c \ominus B_{bg})$$
+$$
+A \circledast B = (A \ominus B_{fg}) \cap (A^c \ominus B_{bg})
+$$
 All other morphological operations (erosion, thinning, thickening, skeletonization) can be mathematically derived as special cases or iterative compositions of the Hit-or-Miss transform.
 
 ### Q2: What is the difference between flat and non-flat structuring elements?
 **Answer**:
 - **Flat Structuring Element**: A binary set $B \subseteq \mathbb{Z}^2$ defined only by its spatial domain coordinates (values are $1$ or $0$). Used for binary morphology and standard min/max grayscale filtering.
 - **Non-Flat Structuring Element**: A 3D function $b(x, y)$ that possesses varying height/weight values across its support domain. Grayscale dilation becomes:
-  $$(f \oplus b)(x, y) = \max_{(s, t)} \{ f(x-s, y-t) + b(s, t) \}$$
+
+  $$
+  (f \oplus b)(x, y) = \max_{(s, t)} \{ f(x-s, y-t) + b(s, t) \}
+  $$

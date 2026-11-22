@@ -7,7 +7,10 @@
 
 ## 2. What It Is (Concept & Definition)
 - **Connected Components Labeling (CCL)**: An algorithmic graph-traversal procedure that scans a binary image and groups connected foreground pixels into uniquely labeled disjoint subsets (regions):
-  $$I = \bigcup_{k=1}^K R_k \quad \text{where } R_i \cap R_j = \emptyset \text{ for } i \neq j$$
+
+  $$
+  I = \bigcup_{k=1}^K R_k \quad \text{where } R_i \cap R_j = \emptyset \text{ for } i \neq j
+  $$
 - **Connectivity Types**:
   - *4-Connectivity*: Pixels sharing a common horizontal or vertical edge.
   - *8-Connectivity*: Pixels sharing an edge or a corner vertex (including diagonals).

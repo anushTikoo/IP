@@ -12,7 +12,10 @@
 - **Binary Image Formulation**: A binary image is treated as a 2D discrete set $A \subseteq \mathbb{Z}^2$, where foreground pixels are members ($1$) and background pixels are non-members ($0$).
 - **Structuring Element (SE) $B$**: A small probe matrix (e.g., $3 \times 3$ cross or square) with a defined origin that interrogates the input set $A$.
 - **Fundamental Duality**: Erosion and dilation are morphological duals with respect to set complementation:
-  $$(A \ominus B)^c = A^c \oplus \hat{B}$$
+
+  $$
+  (A \ominus B)^c = A^c \oplus \hat{B}
+  $$
   where $\hat{B} = \{-b \mid b \in B\}$ is the reflection of $B$.
 
 ---
@@ -34,19 +37,29 @@
 ### A. Mathematical Definitions
 1. **Erosion ($A \ominus B$)**:
    The set of all displacement vectors $z$ such that the translated structuring element $(B)_z$ is **entirely contained** within $A$:
-   $$A \ominus B = \{ z \in \mathbb{Z}^2 \mid (B)_z \subseteq A \}$$
+   $$
+   A \ominus B = \{ z \in \mathbb{Z}^2 \mid (B)_z \subseteq A \}
+   $$
    *Hit-or-Miss Intuition*: For every pixel, place the center of $B$ at that pixel. If **all** 1-elements of $B$ match 1-elements of $A$ ("complete fit"), the output pixel is $1$; otherwise, it is $0$.
 
 2. **Dilation ($A \oplus B$)**:
    The set of all displacement vectors $z$ such that the reflected structuring element $(\hat{B})_z$ **overlaps** (hits) at least one element of $A$:
-   $$A \oplus B = \{ z \in \mathbb{Z}^2 \mid (\hat{B})_z \cap A \neq \emptyset \}$$
+   $$
+   A \oplus B = \{ z \in \mathbb{Z}^2 \mid (\hat{B})_z \cap A \neq \emptyset \}
+   $$
    *Hit Intuition*: If **any** 1-element of $B$ overlaps a 1-element of $A$, the output pixel is $1$; otherwise, it is $0$.
 
 ### B. Standard $3 \times 3$ Structuring Elements
 - **Square (8-connectivity)**:
-  $$B_{square} = \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}$$
+
+  $$
+  B_{square} = \begin{bmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{bmatrix}
+  $$
 - **Cross / Plus (4-connectivity)**:
-  $$B_{cross} = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 1 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
+
+  $$
+  B_{cross} = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 1 & 1 \\ 0 & 1 & 0 \end{bmatrix}
+  $$
 
 ---
 
@@ -70,7 +83,9 @@ In [`morphological_erosion_and_dilation.py`](file:///home/anushtikoo/Downloads/I
 
 ### Q1: What is the duality theorem of mathematical morphology?
 **Answer**: Erosion of an image by structuring element $B$ is identical to taking the complement (negative) of the image, dilating it with the reflected structuring element $\hat{B}$, and complementing the result:
-$$(A \ominus B) = ((A^c \oplus \hat{B}))^c$$
+$$
+(A \ominus B) = ((A^c \oplus \hat{B}))^c
+$$
 In plain English: "Eroding the foreground is mathematically equivalent to dilating the background."
 
 ### Q2: Is morphological dilation an invertible operation? Can erosion undo dilation?

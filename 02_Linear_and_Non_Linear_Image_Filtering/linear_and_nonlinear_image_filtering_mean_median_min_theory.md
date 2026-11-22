@@ -34,11 +34,20 @@
 
 For a local neighborhood $S_{xy}$ of size $3 \times 3$:
 1. **Mean Output**:
-   $$g_{mean}(x, y) = \frac{1}{9} \sum_{(s, t) \in S_{xy}} f(x+s, y+t)$$
+
+   $$
+   g_{mean}(x, y) = \frac{1}{9} \sum_{(s, t) \in S_{xy}} f(x+s, y+t)
+   $$
 2. **Median Output**:
-   $$g_{median}(x, y) = \text{Median}_{(s, t) \in S_{xy}} \{ f(x+s, y+t) \}$$
+
+   $$
+   g_{median}(x, y) = \text{Median}_{(s, t) \in S_{xy}} \{ f(x+s, y+t) \}
+   $$
 3. **Min Output**:
-   $$g_{min}(x, y) = \min_{(s, t) \in S_{xy}} \{ f(x+s, y+t) \}$$
+
+   $$
+   g_{min}(x, y) = \min_{(s, t) \in S_{xy}} \{ f(x+s, y+t) \}
+   $$
 
 ---
 
@@ -61,14 +70,20 @@ In [`linear_and_nonlinear_image_filtering_mean_median_min.py`](file:///home/anus
 
 ### Q1: What is the mathematical definition of a linear system, and prove why a mean filter is linear?
 **Answer**: A system $\mathcal{H}$ is linear if:
-$$\mathcal{H}\{a f_1(x, y) + b f_2(x, y)\} = a \mathcal{H}\{f_1(x, y)\} + b \mathcal{H}\{f_2(x, y)\}$$
+$$
+\mathcal{H}\{a f_1(x, y) + b f_2(x, y)\} = a \mathcal{H}\{f_1(x, y)\} + b \mathcal{H}\{f_2(x, y)\}
+$$
 For a mean filter:
-$$\mathcal{H}\{a f_1 + b f_2\} = \frac{1}{N}\sum (a f_1 + b f_2) = a\left(\frac{1}{N}\sum f_1\right) + b\left(\frac{1}{N}\sum f_2\right) = a \mathcal{H}\{f_1\} + b \mathcal{H}\{f_2\}$$
+$$
+\mathcal{H}\{a f_1 + b f_2\} = \frac{1}{N}\sum (a f_1 + b f_2) = a\left(\frac{1}{N}\sum f_1\right) + b\left(\frac{1}{N}\sum f_2\right) = a \mathcal{H}\{f_1\} + b \mathcal{H}\{f_2\}
+$$
 Since both scalability and additivity hold, the mean filter is strictly linear.
 
 ### Q2: Why does a mean filter fail on impulse noise while median succeeds?
 **Answer**: Impulse noise pixels are mathematical outliers with extreme values ($0$ or $255$). In a linear sum, an outlier contributes its full numeric magnitude, altering the arithmetic mean substantially:
-$$\text{Mean} = \frac{8 \times 50 + 255}{9} = \frac{655}{9} \approx 72.8$$
+$$
+\text{Mean} = \frac{8 \times 50 + 255}{9} = \frac{655}{9} \approx 72.8
+$$
 (a $45.6\%$ error).
 In contrast, median is rank-order based; the outlier is moved to the far end of the sorted sequence and has zero mathematical influence on the central rank value.
 

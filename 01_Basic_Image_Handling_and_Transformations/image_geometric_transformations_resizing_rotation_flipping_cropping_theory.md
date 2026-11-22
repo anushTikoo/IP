@@ -8,7 +8,10 @@
 ## 2. What It Is (Concept & Definition)
 - **Geometric Transformations**: Transformations that modify the spatial relationship between pixels rather than modifying the pixel values themselves.
 - **Formal Definition**: A coordinate mapping $T$ such that:
-  $$(x', y') = T(x, y)$$
+
+  $$
+  (x', y') = T(x, y)
+  $$
 - **Affine Transformation Properties**: Preserves collinearity (points lying on a straight line remain on a line) and ratios of distances between points along parallel lines.
 
 ---
@@ -25,21 +28,38 @@
 
 ### A. Affine Transformation Matrix
 General 2D affine transformation in homogeneous coordinates:
-$$\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \begin{bmatrix} a_{11} & a_{12} & t_x \\ a_{21} & a_{22} & t_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}$$
+$$
+\begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix} = \begin{bmatrix} a_{11} & a_{12} & t_x \\ a_{21} & a_{22} & t_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
 
 ### B. Specific Transformation Formulations
 1. **Horizontal Flipping (Mirror Reflection)**:
-   $$x' = W - 1 - x, \quad y' = y$$
+
+   $$
+   x' = W - 1 - x, \quad y' = y
+   $$
 2. **Vertical Flipping**:
-   $$x' = x, \quad y' = H - 1 - y$$
+
+   $$
+   x' = x, \quad y' = H - 1 - y
+   $$
 3. **Rotation by Angle $\theta$ about origin**:
-   $$\begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}$$
+
+   $$
+   \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
+   $$
    For $90^\circ$ clockwise rotation: $\cos(90^\circ) = 0, \sin(90^\circ) = 1 \implies x' = y, y' = -x$.
 4. **Resizing (Scaling)**:
-   $$x' = s_x \cdot x, \quad y' = s_y \cdot y$$
+
+   $$
+   x' = s_x \cdot x, \quad y' = s_y \cdot y
+   $$
    In inverse mapping, for each target pixel $(x', y')$: $x = x' / s_x, y = y' / s_y$.
 5. **Cropping**: Sub-matrix coordinate window extraction:
-   $$I_{cropped} = \{ I(y, x) \mid y_{min} \le y < y_{max}, x_{min} \le x < x_{max} \}$$
+
+   $$
+   I_{cropped} = \{ I(y, x) \mid y_{min} \le y < y_{max}, x_{min} \le x < x_{max} \}
+   $$
 
 ---
 
@@ -68,5 +88,7 @@ In [`image_geometric_transformations_resizing_rotation_flipping_cropping.py`](fi
 
 ### Q3: When rotating an image by an arbitrary angle like $45^\circ$, why do black triangular corners appear?
 **Answer**: A rectangle rotated by an angle other than multiples of $180^\circ$ requires a larger enclosing bounding box to prevent clipping:
-$$W_{new} = W |\cos \theta| + H |\sin \theta|, \quad H_{new} = W |\sin \theta| + H |\cos \theta|$$
+$$
+W_{new} = W |\cos \theta| + H |\sin \theta|, \quad H_{new} = W |\sin \theta| + H |\cos \theta|
+$$
 Any target pixels outside the original rotated rectangle fall outside the source image boundary and default to zero (black).

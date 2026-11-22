@@ -46,7 +46,14 @@ END ALGORITHM
 
 ## 5. Mathematical Formulations & Transformation Equations
 - **Sobel Magnitude:** $G(x, y) = \sqrt{\left(\frac{\partial f}{\partial x}\right)^2 + \left(\frac{\partial f}{\partial y}\right)^2}$
-- **Binarization:** $E(x, y) = \begin{cases} 255 & \text{if } G(x, y) \ge T \\ 0 & \text{otherwise} \end{cases}$
+- **Binarization:**
+
+  $$
+  E(x, y) = \begin{cases}
+    255 & \text{if } G(x, y) \ge T \\
+    0 & \text{otherwise}
+  \end{cases}
+  $$
 - **Morphological Closing:** $E_{closed} = (E \oplus B) \ominus B$
 
 ---

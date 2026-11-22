@@ -29,7 +29,10 @@
 ### A. Algorithmic Procedure
 1. **Seed Selection**: Choose one or more initial starting pixels $(x_0, y_0)$ (manually selected or automatically detected via local histogram extrema).
 2. **Similarity Criterion**: A pixel $p = (x, y)$ is merged into region $R$ if its intensity difference from the seed (or the running region mean $\mu_R$) is within threshold $T$:
-   $$|I(x, y) - I_{seed}| \le T \quad \text{or} \quad |I(x, y) - \mu_R| \le T$$
+
+   $$
+   |I(x, y) - I_{seed}| \le T \quad \text{or} \quad |I(x, y) - \mu_R| \le T
+   $$
 3. **Queue / Breadth-First Search (BFS) Traversal**:
    - Push seed pixel $(x_0, y_0)$ into a FIFO queue and mark as visited.
    - While queue is not empty:

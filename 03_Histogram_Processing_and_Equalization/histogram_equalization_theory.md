@@ -9,7 +9,10 @@
 - **Histogram Equalization (HE)**: A non-linear spatial domain transformation technique that flattens the probability density function (PDF) of image intensities, spreading out the most frequent intensity values across the entire $[0, 255]$ dynamic range.
 - **Mathematical Principle**: Based on the **Cumulative Distribution Function (CDF)** of the image intensities. The CDF serves as the monotonic intensity transfer function $s = T(r)$.
 - **Information Theory**: Equalization maximizes the image's **Shannon Entropy**:
-  $$H = -\sum_{k=0}^{L-1} p(r_k) \log_2 p(r_k)$$
+
+  $$
+  H = -\sum_{k=0}^{L-1} p(r_k) \log_2 p(r_k)
+  $$
   Entropy is maximized when all intensity levels are equiprobable (a uniform distribution).
 
 ---
@@ -29,20 +32,36 @@
 ### A. Continuous Formulation
 For an image with continuous intensity $r \in [0, 1]$ and probability density $p_r(r)$, we seek a transformation $s = T(r)$ such that the output probability density $p_s(s)$ is uniform ($p_s(s) = 1$ for $s \in [0, 1]$).
 By the fundamental theorem of random variable transformation:
-$$p_s(s) = p_r(r) \left| \frac{dr}{ds} \right| \implies \frac{ds}{dr} = p_r(r)$$
+$$
+p_s(s) = p_r(r) \left| \frac{dr}{ds} \right| \implies \frac{ds}{dr} = p_r(r)
+$$
 Integrating both sides yields the Cumulative Distribution Function (CDF):
-$$s = T(r) = \int_0^r p_r(w) \, dw$$
+$$
+s = T(r) = \int_0^r p_r(w) \, dw
+$$
 
 ### B. Discrete Digital Formulation
 For an 8-bit digital image of dimensions $M \times N$ with $L = 256$ gray levels ($r_k, k = 0, 1, \dots, 255$):
 1. **Histogram Calculation**:
-   $$h(r_k) = n_k \quad (\text{count of pixels with gray level } r_k)$$
+
+   $$
+   h(r_k) = n_k \quad (\text{count of pixels with gray level } r_k)
+   $$
 2. **Normalized Probability**:
-   $$p_r(r_k) = \frac{n_k}{M \times N}$$
+
+   $$
+   p_r(r_k) = \frac{n_k}{M \times N}
+   $$
 3. **Cumulative Distribution Function (CDF)**:
-   $$CDF(r_k) = \sum_{j=0}^k p_r(r_j) = \frac{1}{M \times N} \sum_{j=0}^k n_j$$
+
+   $$
+   CDF(r_k) = \sum_{j=0}^k p_r(r_j) = \frac{1}{M \times N} \sum_{j=0}^k n_j
+   $$
 4. **Lookup Table Mapping**:
-   $$s_k = \text{round}\left( \frac{CDF(r_k) - CDF_{min}}{(M \times N) - CDF_{min}} \times (L - 1) \right) \approx \text{round}\left( \frac{\sum_{j=0}^k n_j}{M \times N} \times 255 \right)$$
+
+   $$
+   s_k = \text{round}\left( \frac{CDF(r_k) - CDF_{min}}{(M \times N) - CDF_{min}} \times (L - 1) \right) \approx \text{round}\left( \frac{\sum_{j=0}^k n_j}{M \times N} \times 255 \right)
+   $$
 
 ---
 

@@ -8,7 +8,10 @@
 ## 2. What It Is (Concept & Definition)
 - **Run-Length Encoding (RLE)**: A simple, deterministic, lossless data compression algorithm that exploits **spatial redundancy** (spatial correlation between consecutive adjacent pixels).
 - **Core Representation**: Replaces contiguous sequences of identical data values (runs) with a sequence of tuples:
-  $$\text{Run} = (\text{Pixel Value } V, \text{Run Length } C)$$
+
+  $$
+  \text{Run} = (\text{Pixel Value } V, \text{Run Length } C)
+  $$
 - **Raster Scanning**: Traverses 2D image matrices in standard row-major (raster scan), column-major, or zig-zag order to convert 2D spatial correlation into a 1D sequence of repeating runs.
 
 ---
@@ -24,7 +27,9 @@
 
 ### A. Raster Scan Example
 Consider a 1D array of flattened pixels:
-$$\text{Data}: \quad [255, 255, 255, 255, 0, 0, 0, 100, 100]$$
+$$
+\text{Data}: \quad [255, 255, 255, 255, 0, 0, 0, 100, 100]
+$$
 - Uncompressed size: $9 \text{ bytes} = 72 \text{ bits}$.
 - RLE Encoded: $[(255, 4), (0, 3), (100, 2)]$
 - Encoded size: $3 \text{ pairs} \times 2 \text{ bytes} = 6 \text{ bytes} = 48 \text{ bits}$.
@@ -32,7 +37,9 @@ $$\text{Data}: \quad [255, 255, 255, 255, 0, 0, 0, 100, 100]$$
 
 ### B. The Negative Compression Trap (Data Expansion)
 If an image has high entropy (e.g., random salt noise or detailed photograph) where no two consecutive pixels match:
-$$\text{Data}: \quad [12, 15, 18, 22, 90, 104]$$
+$$
+\text{Data}: \quad [12, 15, 18, 22, 90, 104]
+$$
 - RLE Encoded: $[(12, 1), (15, 1), (18, 1), (22, 1), (90, 1), (104, 1)]$
 - Size doubles from 6 bytes to 12 bytes! The compression ratio drops to $0.5\times$ (**negative compression / expansion**).
 
