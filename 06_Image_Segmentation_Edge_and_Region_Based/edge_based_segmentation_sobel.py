@@ -1,69 +1,29 @@
+import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-from PIL import Image
 # ----
 
-def load_grayscale(path):
-    img = Image.open(path).convert('L')
-    return np.array(img, dtype=np.float64)
+img = cv2.imread("image3.png", cv2.IMREAD_GRAYSCALE)
+if img is None:
+    img = np.zeros((128, 128), dtype=np.uint8)
+    img[32:96, 32:96] = 200
 # ----
 
-def convolve2d(image, kernel):
-    k_h, k_w = kernel.shape
-    pad_h, pad_w = k_h // 2, k_w // 2
-    padded = np.pad(
-        image,
-        ((pad_h, pad_h), (pad_w, pad_w)),
-        mode='constant'
-    )
-    output = np.zeros_like(image)
-    flipped_kernel = np.flipud(np.fliplr(kernel))
-    for i in range(image.shape[0]):
-        for j in range(image.shape[1]):
-            region = padded[i:i + k_h, j:j + k_w]
-            output[i, j] = np.sum(region * flipped_kernel)
-    return output
+def sobel_segmentation(image, threshold=100):
+    kx = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
+    ky = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
+    h, w = image.shape
+    grad = np.zeros((h, w), dtype=np.float32)
+    for i in range(1, h - 1):
+        for j in range(1, w - 1):
+            region = image[i - 1:i + 2, j - 1:j + 2]
+            gx = np.sum(region * kx)
+            gy = np.sum(region * ky)
+            grad[i, j] = np.sqrt(gx**2 + gy**2)
+    segmented = (grad > threshold).astype(np.uint8) * 255
+    return grad, segmented
 # ----
 
-def edge_based_segmentation(image, threshold):
-    sobel_x = np.array([
-        [-1, 0, 1],
-        [-2, 0, 2],
-        [-1, 0, 1]
-    ], dtype=np.float64)
-    sobel_y = np.array([
-        [-1, -2, -1],
-        [0, 0, 0],
-        [1, 2, 1]
-    ], dtype=np.float64)
-    grad_x = convolve2d(image, sobel_x)
-    grad_y = convolve2d(image, sobel_y)
-    magnitude = np.sqrt(grad_x ** 2 + grad_y ** 2)
-    magnitude = (magnitude / magnitude.max()) * 255
-    segmented = (magnitude > threshold).astype(np.uint8) * 255
-    return magnitude, segmented
-# ----
+grad, segmented = sobel_segmentation(img)
 
-edge_configs = [
-    {"path": "image1.jpg", "edge_threshold": 60},
-    {"path": "image2.jpg", "edge_threshold": 60},
-]
-
-fig, axes = plt.subplots(2, 3, figsize=(14, 10))
-for row, cfg in enumerate(edge_configs):
-    img = load_grayscale(cfg["path"])
-    magnitude, edge_segmented = edge_based_segmentation(
-        img,
-        cfg["edge_threshold"]
-    )
-    axes[row, 0].imshow(img, cmap='gray')
-    axes[row, 0].set_title(f'{cfg["path"]} - Original')
-    axes[row, 1].imshow(magnitude, cmap='gray')
-    axes[row, 1].set_title('Sobel Gradient Magnitude')
-    axes[row, 2].imshow(edge_segmented, cmap='gray')
-    axes[row, 2].set_title('Edge-Based Segmentation')
-    for ax in axes[row]:
-        ax.axis('off')
-plt.tight_layout()
-plt.show()
-# ----
+plt.figure(figsize=(10, 4))\nplt.subplot(131); plt.imshow(img, cmap=\"gray\"); plt.title(\"Original\"); plt.axis(\"off\")\nplt.subplot(132); plt.imshow(grad, cmap=\"gray\"); plt.title(\"Sobel Gradient\"); plt.axis(\"off\")\nplt.subplot(133); plt.imshow(segmented, cmap=\"gray\"); plt.title(\"Edge-Based Segmentation\"); plt.axis(\"off\")\nplt.tight_layout()\nplt.show()\n# ----\n
