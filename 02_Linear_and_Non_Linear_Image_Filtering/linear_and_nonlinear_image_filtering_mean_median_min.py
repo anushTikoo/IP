@@ -3,132 +3,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 # ----
 
-gaussian_img = cv2.imread("gaussian_noise_img.png", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("gaussian_noise_img.png", cv2.IMREAD_GRAYSCALE)
+if img is None:
+    img = np.random.randint(50, 200, (128, 128), dtype=np.uint8)
 
-plt.imshow(gaussian_img, cmap="gray")
-plt.title("Gaussian Noisy Image")
-plt.axis("off")
-plt.show()
+rows, cols = img.shape
+mean_out = np.zeros((rows, cols), dtype=np.uint8)
+median_out = np.zeros((rows, cols), dtype=np.uint8)
+min_out = np.zeros((rows, cols), dtype=np.uint8)
 # ----
-
-rows, cols = gaussian_img.shape
-
-mean_img = np.zeros((rows, cols), dtype=np.uint8)
-weighted_img = np.zeros((rows, cols), dtype=np.uint8)
-
-kernel = [
-    [1, 2, 1],
-    [2, 4, 2],
-    [1, 2, 1]
-]
 
 for i in range(1, rows - 1):
     for j in range(1, cols - 1):
-        total = 0
-        weighted_sum = 0
-        for m in range(-1, 2):
-            for n in range(-1, 2):
-                pixel = int(gaussian_img[i + m][j + n])
-                total += pixel
-                weighted_sum += pixel * kernel[m + 1][n + 1]
-        mean_img[i][j] = total // 9
-        weighted_img[i][j] = weighted_sum // 16
+        region = img[i - 1:i + 2, j - 1:j + 2]
+        mean_out[i, j] = int(np.sum(region) // 9)
+        median_out[i, j] = int(np.median(region))
+        min_out[i, j] = np.min(region)
+# ----
 
 plt.figure(figsize=(12, 4))
-plt.subplot(131)
-plt.imshow(gaussian_img, cmap="gray")
-plt.title("Gaussian Noisy Image")
-plt.axis("off")
-
-plt.subplot(132)
-plt.imshow(mean_img, cmap="gray")
-plt.title("Mean Filter Output")
-plt.axis("off")
-
-plt.subplot(133)
-plt.imshow(weighted_img, cmap="gray")
-plt.title("Weighted Mean Output")
-plt.axis("off")
-
-plt.tight_layout()
-plt.show()
-# ----
-
-sp_img = cv2.imread("salt_pepper_noise_img.png", cv2.IMREAD_GRAYSCALE)
-
-plt.imshow(sp_img, cmap="gray")
-plt.title("Salt-and-Pepper Noisy Image")
-plt.axis("off")
-plt.show()
-# ----
-
-rows, cols = sp_img.shape
-
-median_img = np.zeros((rows, cols), dtype=np.uint8)
-
-for i in range(1, rows - 1):
-    for j in range(1, cols - 1):
-        window = []
-        for m in range(-1, 2):
-            for n in range(-1, 2):
-                pixel = int(sp_img[i + m][j + n])
-                window.append(pixel)
-        for x in range(8):
-            for y in range(8 - x):
-                if window[y] > window[y + 1]:
-                    temp = window[y]
-                    window[y] = window[y + 1]
-                    window[y + 1] = temp
-        median_img[i][j] = window[4]
-
-plt.figure(figsize=(8, 4))
-plt.subplot(121)
-plt.imshow(sp_img, cmap="gray")
-plt.title("Salt-and-Pepper Noisy Image")
-plt.axis("off")
-
-plt.subplot(122)
-plt.imshow(median_img, cmap="gray")
-plt.title("Median Filter Output")
-plt.axis("off")
-
-plt.tight_layout()
-plt.show()
-# ----
-
-salt_img = cv2.imread("salt_noise_img.jpg", cv2.IMREAD_GRAYSCALE)
-
-plt.imshow(salt_img, cmap="gray")
-plt.title("Salt Noise Image")
-plt.axis("off")
-plt.show()
-# ----
-
-rows, cols = salt_img.shape
-
-min_img = np.zeros((rows, cols), dtype=np.uint8)
-
-for i in range(1, rows - 1):
-    for j in range(1, cols - 1):
-        minimum = 255
-        for m in range(-1, 2):
-            for n in range(-1, 2):
-                pixel = int(salt_img[i + m][j + n])
-                if pixel < minimum:
-                    minimum = pixel
-        min_img[i][j] = minimum
-
-plt.figure(figsize=(8, 4))
-plt.subplot(121)
-plt.imshow(salt_img, cmap="gray")
-plt.title("Salt Noisy Image")
-plt.axis("off")
-
-plt.subplot(122)
-plt.imshow(min_img, cmap="gray")
-plt.title("Min Filter Output")
-plt.axis("off")
-
+plt.subplot(141); plt.imshow(img, cmap="gray"); plt.title("Original Noisy"); plt.axis("off")
+plt.subplot(142); plt.imshow(mean_out, cmap="gray"); plt.title("Mean Filter"); plt.axis("off")
+plt.subplot(143); plt.imshow(median_out, cmap="gray"); plt.title("Median Filter"); plt.axis("off")
+plt.subplot(144); plt.imshow(min_out, cmap="gray"); plt.title("Min Filter"); plt.axis("off")
 plt.tight_layout()
 plt.show()
 # ----
